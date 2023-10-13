@@ -88,6 +88,7 @@ function updateMap(latitude, longitude) {
       );
       var bearsIcon = new H.map.Icon(svgMarkup);
       bearsMarker = new H.map.Marker({ lat: 37.404319763183594, lng: -122.16726684570312},{icon: bearsIcon});
+      map.addObject(bearsMarker);
       // This adds a resize listener to make sure that the map occupies the whole container
       window.addEventListener('resize', () => map.getViewPort().resize());
       //Step 3: make the map interactive
