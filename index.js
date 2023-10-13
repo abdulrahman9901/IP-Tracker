@@ -10,11 +10,8 @@ function fetchIpData(ip) {
     response.json().then(function(data) {
       console.log(data);
       document.getElementById('ip').innerText = ip;
-      document.getElementById('ip-location').innerText = `${data.city},${data.region_code} ${data.postal}`;
-      if(parseFloat(data.timezone.utc) < 0)
-        document.getElementById('timezone').innerText = `UTC${data.timezone.utc}`;
-    else 
-        document.getElementById('timezone').innerText = `UTC+${data.timezone.utc}`;
+      document.getElementById('ip-location').innerText = `${data.country},${data.city},${data.region_code} ${data.postal}`;
+      document.getElementById('timezone').innerText = `UTC${data.timezone.utc}`;
       document.getElementById('isp').innerText = data.connection.isp;
       updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
     });
@@ -25,29 +22,7 @@ function fetchIpData(ip) {
 });
 
 }
-// Function to get the local IP address
- function getLocalIpAddress() {
-  const { RTCPeerConnection } = window;
 
-  if (RTCPeerConnection) {
-    const rtc = new RTCPeerConnection({ iceServers: [] });
-    rtc.createDataChannel('');
-
-    rtc.createOffer()
-      .then(offer => rtc.setLocalDescription(offer))
-      .catch(error => console.error(error));
-
-    rtc.onicecandidate = (event) => {
-      if (event.candidate) {
-        const ipAddress = event.candidate.address || event.candidate.ipAddress;
-        console.log('Your local IP address is: ' + ipAddress || '192.168.36.1' );
-        fetchIpData(ipAddress || '192.168.36.1');
-      }
-    };
-  } else {
-    alert('WebRTC is not supported in this browser. Cannot get local IP address.');
-  }
-}
 
 let searchBtn = document.querySelector('#searchbtn');
 searchBtn.addEventListener('click', function(e) {
