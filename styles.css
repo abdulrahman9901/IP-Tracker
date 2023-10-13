@@ -1,0 +1,205 @@
+body {
+    height: 100%;
+    text-align: center;
+    background-image: url("./images/pattern-bg-desktop.png");
+margin: 0;
+font-family: 'Rubik','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+overflow: hidden;
+}
+table {
+    margin: auto;
+    margin-top: 35px !important;
+  width: 75%;
+  border-radius: 15px;
+  margin-top: 5%;
+background-color: white;
+position: sticky;
+z-index: 10;
+height: 20vh;
+text-align: left;
+padding-left: 30px;
+height: fit-content !important;
+}
+/* 
+@media(max-width: 1050px) {
+    td {
+        padding-right: 30px !important;
+    }
+}
+@media(max-width: 900px) {
+    td {
+       
+        padding-right: 15px !important;
+        font-size: large !important;
+    }
+}
+
+@media(max-width: 650px) {
+    td {
+
+        padding-right: 0 !important;
+        font-size: medium !important;
+    }
+    table{
+        padding-left: 15px;
+    }
+}
+
+
+@media screen and (max-width:600px) {
+    tr {
+        display: inline-flex;
+        flex-direction: column;
+      }
+  } */
+
+ 
+h2 {
+    color: white;
+}
+/* th {
+    color: gray;
+  font-size: small;
+  font-weight: bolder;
+  padding-bottom: 0px;
+}
+td {
+    font-size: x-large;
+  font-weight: bolder;
+  padding-right: 50px;
+} */
+.left-boredr {
+    border-left: solid 1px lightgray;
+}
+#map {
+    width: 100%;
+    margin-top: -77px;
+    height: 100vh;
+    object-fit: cover;
+}
+#location {
+  top: 70%;
+  position: absolute;
+  left: 50%;
+}
+#isp{
+    padding-right: 0;
+}
+.searchButton{
+    width: 40px;
+    height: 39px;
+    background-color: black;
+    border-radius: 0px 10px 10px 0px;
+    border: 1px;
+    outline: none; 
+    padding-bottom: 0px;
+  padding-top: 2px;
+}
+.searchButton:hover{
+    cursor: pointer;
+    background-color: #514d4d;
+}
+.searchTerm {
+    height: 35px;
+    width: 25%;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid;
+    padding-left: 15px;
+    outline: none; 
+    font-size :18px;
+}
+.searchTerm:hover {
+    cursor: pointer;
+}
+
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Adjust as needed */
+    margin: 10px; /* Adjust as needed */
+    flex-direction: row; /* Set the direction to row */
+    margin: auto;
+    margin-top: 35px !important;
+  max-width: 75%;
+  border-radius: 15px;
+background-color: white;
+position: sticky;
+z-index: 10;
+height: 20vh ;
+text-align: left;
+padding-left: 30px;
+justify-content: center;
+  }
+
+  /* Flex items (each column) */
+  .flex-item {
+    flex: 1;
+    /* padding: 10px; */
+    font-size: x-large;
+    font-weight: bolder;
+    padding-right: 50px;
+    border: 1px solid #ccc;
+    overflow: auto; /* Add scrollbars for overflow */
+  }
+
+  /* Styling for header cells */
+  .header-cell {
+    color: hsl(0, 0%, 59%);
+  font-size: small;
+  font-weight: bolder;
+  padding-bottom: 0px;
+  flex-basis: 25%;
+  margin: auto !important;
+  border: none;
+  height: 60%;
+  }
+
+  /* Styling for left-bordered cells */
+  .left-border {
+    border-left: 1px solid lightgray ;
+    margin-top: 15px !important;
+    font-size: large !important;
+    color: hsl(0, 0%, 17%) !important;
+    padding-left: 10px;
+    min-height: 50px;
+ }
+
+ @media(max-width: 1000px) {
+  
+    .flex-container{
+        max-width: 80%;
+    }
+ 
+ }
+
+
+
+ @media(max-width: 800px) {
+    .left-border {
+     /* min-height: 80px !important; */
+     max-height: 60% !important;
+    }
+    .flex-container{
+        max-width: 93%;
+    }
+    .searchTerm{
+        width: 45%;
+    }
+ }
+
+ @media screen and (max-width: 700px){
+    .flex-container {
+        flex-direction: column !important;
+        margin: auto !important;
+        margin-top: 35px !important;
+        width: 50%;
+        text-align: center !important;
+        height: fit-content !important;
+      }
+    .left-border {
+        border: none !important;
+    }
+    .header-cell {
+        max-height: 80px;
+    }
+ }
