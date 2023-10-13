@@ -24,29 +24,6 @@ function fetchIpData(ip) {
   console.log('Fetch Error :-S', err);
 });
 
-// fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=53928e952ac147d1ac47402d8f071905&ip=${ip}`)
-// .then(
-//   function(response) {
-//     if (response.status !== 200) {
-//       console.log('Looks like there was a problem. Status Code: ' +
-//         response.status);
-//       return;
-//     }
-//     response.json().then(function(data) {
-//       console.log(data);
-//       if(parseFloat(data.time_zone.offset) < 0)
-//         document.getElementById('timezone').innerText = `UTC${parseFloat(data.time_zone.offset)}`;
-//     else 
-//         document.getElementById('timezone').innerText = `UTC+${parseFloat(data.time_zone.offset)}`;
-//       document.getElementById('isp').innerText = data.isp;
-//       updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
-//     });
-//   }
-// )
-// .catch(function(err) {
-//   console.log('Fetch Error :-S', err);
-// });
-
 }
 // Function to get the local IP address
  function getLocalIpAddress() {
@@ -91,78 +68,37 @@ fetchIpData(ip);
     }
   }
 
-   //Step 1: initialize communication with the platform
-        // Replace variable YOUR_API_KEY with your own apikey
-        var platform = new H.service.Platform({
-          apikey: 'VMuynjvTxwRT30yq-dka5izREzHMcm6PdgKYyIejNPg'
-      });
-      var defaultLayers = platform.createDefaultLayers();
-      //Step 2: initialize a map - this map is centered over Europe
-      var map = new H.Map(document.getElementById('map'),
-          defaultLayers.vector.normal.map,
-          {
-              center: { lat: 37.404319763183594, lng: -122.16726684570312 },
-              zoom: 10,
-              pixelRatio: window.devicePixelRatio || 1
-          }
-      );
-      // This adds a resize listener to make sure that the map occupies the whole container
-      window.addEventListener('resize', () => map.getViewPort().resize());
-      //Step 3: make the map interactive
-      // MapEvents enables the event system
-      // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-      var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+//Step 1: initialize communication with the platform
+    // Replace variable YOUR_API_KEY with your own apikey
+    var platform = new H.service.Platform({
+      apikey: 'VMuynjvTxwRT30yq-dka5izREzHMcm6PdgKYyIejNPg'
+  });
+  var defaultLayers = platform.createDefaultLayers();
+  //Step 2: initialize a map - this map is centered over Europe
+  var map = new H.Map(document.getElementById('map'),
+      defaultLayers.vector.normal.map,
+      {
+          center: { lat: 37.404319763183594, lng: -122.16726684570312 },
+          zoom: 10,
+          pixelRatio: window.devicePixelRatio || 1
+      }
+  );
+  // This adds a resize listener to make sure that the map occupies the whole container
+  window.addEventListener('resize', () => map.getViewPort().resize());
+  //Step 3: make the map interactive
+  // MapEvents enables the event system
+  // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+  var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
-      // Create the default UI components
-      var ui = H.ui.UI.createDefault(map, defaultLayers);
+  // Create the default UI components
+  var ui = H.ui.UI.createDefault(map, defaultLayers);
 
 // Event listener for the Enter key press
 document.getElementById("searchbar").addEventListener("keyup", function(e) {
   console.log('Enter key' ,event.key)
   if (event.key === "Enter") {
-  const ip = document.querySelector('#searchbar').value ;
-  fetch(`http://api.ipstack.com/${ip}?access_key=cdc36e56c18d724e0bdc06e30be4f1b1`)
-  .then(
-    function(response) {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return;
-      }
-      response.json().then(function(data) {
-        console.log(data);
-        document.getElementById('ip').innerText = ip;
-        document.getElementById('ip-location').innerText = `${data.city},${data.region_code} ${data.zip}`;
-      });
+      const ip = document.querySelector('#searchbar').value ;
+      fetchIpData(ip);
     }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
-  
-  fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=53928e952ac147d1ac47402d8f071905&ip=${ip}`)
-  .then(
-    function(response) {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return;
-      }
-      response.json().then(function(data) {
-        console.log(data);
-        if(parseFloat(data.time_zone.offset) < 0)
-          document.getElementById('timezone').innerText = `UTC${parseFloat(data.time_zone.offset)}`;
-      else 
-          document.getElementById('timezone').innerText = `UTC+${parseFloat(data.time_zone.offset)}`;
-        document.getElementById('isp').innerText = data.isp;
-        updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
-      });
-    }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
-  }
 });
 
-// document.addEventListener('DOMContentLoaded', getLocalIpAddress);
