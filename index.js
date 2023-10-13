@@ -10,7 +10,7 @@ function fetchIpData(ip) {
     response.json().then(function(data) {
       console.log(data);
       document.getElementById('ip').innerText = ip;
-      document.getElementById('ip-location').innerText = `${data.country},${data.city},${data.region_code} ${data.postal}`;
+      document.getElementById('ip-location').innerText = `${data.country_code},${data.city},${data.region_code} ${data.postal}`;
       document.getElementById('timezone').innerText = `UTC${data.timezone.utc}`;
       document.getElementById('isp').innerText = data.connection.isp;
       updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
