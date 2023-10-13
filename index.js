@@ -1,5 +1,5 @@
 function fetchIpData(ip) {
-  fetch(`http://api.ipstack.com/${ip}?access_key=cdc36e56c18d724e0bdc06e30be4f1b1`)
+  fetch(`https://api.ipstack.com/${ip}?access_key=cdc36e56c18d724e0bdc06e30be4f1b1`)
 .then(
   function(response) {
     if (response.status !== 200) {
