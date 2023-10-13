@@ -58,7 +58,7 @@ fetchIpData(ip);
           defaultLayers.vector.normal.map,
           {
               center: { lat: 37.404319763183594, lng: -122.16726684570312 },
-              zoom: 10,
+              zoom: 7,
               pixelRatio: window.devicePixelRatio || 1
           }
       );

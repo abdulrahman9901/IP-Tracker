@@ -175,4 +175,7 @@ justify-content: center;
     .searchButton {
         padding-top: 0px;
     }
+    #map {
+        margin-top: -200px;
+    }
  }
