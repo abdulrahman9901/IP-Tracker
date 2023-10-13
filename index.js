@@ -1,5 +1,5 @@
 function fetchIpData(ip) {
-  fetch(`http://api.ipstack.com/${ip}?access_key=cdc36e56c18d724e0bdc06e30be4f1b1`)
+  fetch(`https://ipwho.is/${ip}`)
 .then(
   function(response) {
     if (response.status !== 200) {
@@ -10,29 +10,12 @@ function fetchIpData(ip) {
     response.json().then(function(data) {
       console.log(data);
       document.getElementById('ip').innerText = ip;
-      document.getElementById('ip-location').innerText = `${data.city},${data.region_code} ${data.zip}`;
-    });
-  }
-)
-.catch(function(err) {
-  console.log('Fetch Error :-S', err);
-});
-
-fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=53928e952ac147d1ac47402d8f071905&ip=${ip}`)
-.then(
-  function(response) {
-    if (response.status !== 200) {
-      console.log('Looks like there was a problem. Status Code: ' +
-        response.status);
-      return;
-    }
-    response.json().then(function(data) {
-      console.log(data);
-      if(parseFloat(data.time_zone.offset) < 0)
-        document.getElementById('timezone').innerText = `UTC${parseFloat(data.time_zone.offset)}`;
+      document.getElementById('ip-location').innerText = `${data.city},${data.region_code} ${data.postal}`;
+      if(parseFloat(data.timezone.utc) < 0)
+        document.getElementById('timezone').innerText = `UTC${data.timezone.utc}`;
     else 
-        document.getElementById('timezone').innerText = `UTC+${parseFloat(data.time_zone.offset)}`;
-      document.getElementById('isp').innerText = data.isp;
+        document.getElementById('timezone').innerText = `UTC+${data.timezone.utc}`;
+      document.getElementById('isp').innerText = data.connection.isp;
       updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
     });
   }
@@ -40,6 +23,29 @@ fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=53928e952ac147d1ac47402d8f07190
 .catch(function(err) {
   console.log('Fetch Error :-S', err);
 });
+
+// fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=53928e952ac147d1ac47402d8f071905&ip=${ip}`)
+// .then(
+//   function(response) {
+//     if (response.status !== 200) {
+//       console.log('Looks like there was a problem. Status Code: ' +
+//         response.status);
+//       return;
+//     }
+//     response.json().then(function(data) {
+//       console.log(data);
+//       if(parseFloat(data.time_zone.offset) < 0)
+//         document.getElementById('timezone').innerText = `UTC${parseFloat(data.time_zone.offset)}`;
+//     else 
+//         document.getElementById('timezone').innerText = `UTC+${parseFloat(data.time_zone.offset)}`;
+//       document.getElementById('isp').innerText = data.isp;
+//       updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
+//     });
+//   }
+// )
+// .catch(function(err) {
+//   console.log('Fetch Error :-S', err);
+// });
 
 }
 // Function to get the local IP address
