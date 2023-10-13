@@ -156,12 +156,16 @@ justify-content: center;
         padding-bottom: 10px;
         padding-left: 30px;
         padding-right: 45px;
+        padding-bottom: 0px;
       }
     .left-border {
         border: none !important;
+        margin: 5px 0px 0px 0px !important;
+        font-size: medium !important;
     }
     .header-cell {
         max-height: 80px;
+        font-size: 10px;
     }
     .flex-item {
         overflow:hidden;
