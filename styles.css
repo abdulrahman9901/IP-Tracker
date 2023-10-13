@@ -154,6 +154,8 @@ justify-content: center;
         height: fit-content !important;
         padding-top: 10px;
         padding-bottom: 10px;
+        padding-left: 30px;
+        padding-right: 45px;
       }
     .left-border {
         border: none !important;
@@ -163,5 +165,11 @@ justify-content: center;
     }
     .flex-item {
         overflow:hidden;
+        padding: 0px;
+        margin: 0;
+    }
+    .searchTerm{
+        width: 55%;
+        font-size: 14;
     }
  }
