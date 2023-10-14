@@ -34,10 +34,12 @@ fetchIpData(ip);
     try {
       if (map) {
         map.setCenter({ lat: latitude, lng: longitude });
+        // Remove the marker from the map
+        map.removeObject(bearsMarker);
         var bearsIcon = new H.map.Icon(svgMarkup);
         bearsMarker = new H.map.Marker({lat: latitude, lng: longitude },{icon: bearsIcon});
   
-          map.addObject(bearsMarker);
+        map.addObject(bearsMarker);
       } else {
         console.error('Map not initialized.');
       }
