@@ -33,9 +33,9 @@ fetchIpData(ip);
    function updateMap(latitude, longitude) {
     try {
       if (map) {
+        map.removeObject(bearsMarker);
         map.setCenter({ lat: latitude, lng: longitude });
         // Remove the marker from the map
-        map.removeObject(bearsMarker);
         var bearsIcon = new H.map.Icon(svgMarkup);
         bearsMarker = new H.map.Marker({lat: latitude, lng: longitude },{icon: bearsIcon});
   
