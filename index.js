@@ -1,6 +1,13 @@
 function fetchIpData(ip) {
-  fetch(`https://ipwho.is/${ip}`)
-.then(
+  console.log('Fetching',ip);
+  fetch('http://127.0.0.1:3000/getIpInfo', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ ip: ip }),
+    })
+  .then(
   function(response) {
     if (response.status !== 200) {
       console.log('Looks like there was a problem. Status Code: ' +
@@ -10,7 +17,7 @@ function fetchIpData(ip) {
     response.json().then(function(data) {
       console.log(data);
       document.getElementById('ip').innerText = ip;
-      document.getElementById('ip-location').innerText = `${data.country_code},${data.city},${data.region_code} ${data.postal}`;
+      document.getElementById('ip-location').innerText = `${data.country_code} ${data.flag.emoji} ,${data.city},${data.region_code} ${data.postal}`;
       document.getElementById('timezone').innerText = `UTC${data.timezone.utc}`;
       document.getElementById('isp').innerText = data.connection.isp;
       updateMap(parseFloat(data.latitude),parseFloat(data.longitude));
@@ -22,6 +29,28 @@ function fetchIpData(ip) {
 });
 
 }
+
+function fetchDataAndReplace() {
+  fetch('http://127.0.0.1:3000/getIp', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    fetchIpData(data.ip)
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Handle errors
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Fetch data when the page loads
+  fetchDataAndReplace();
+});
 
 
 let searchBtn = document.querySelector('#searchbtn');
@@ -86,3 +115,66 @@ document.getElementById("searchbar").addEventListener("keyup", function(e) {
     }
 });
 
+// Function to format IP address and perform validation
+function formatAndValidateIP(input) {
+  // Split the input by spaces
+  const parts = input.split('.');
+  console.log("parts",parts)
+  // Process each part separately
+  const formattedSegments = parts.map((part, index, array) => {
+    // Remove non-numeric characters and replace spaces with dots
+    const cleanedInput = part.replace(/[^\d.]/g, '');
+  
+    
+    // Ensure each segment has between one and three digits
+    const trimmedSegment = cleanedInput.slice(0, 3);
+
+    // Add a dot after the segment if it has 3 digits and it's not the last one
+    if ((trimmedSegment.length === 3 || index < parts.length - 1) && index !== 3 && trimmedSegment.charAt(trimmedSegment.length - 1) !== '.') {
+      return trimmedSegment + '.';
+    } else {
+      return trimmedSegment;
+    }
+  });
+
+  // Ensure only four sets
+  const validSegments = formattedSegments.slice(0, 4);
+
+  // Join the formatted segments with dots
+  let finalFormattedInput = validSegments.join('');
+  
+  document.getElementById('searchbar').value = finalFormattedInput;
+
+  // Validate the IP address using a regular expression
+  const ipRegex = /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})?$/;
+  const isValidIP = ipRegex.test(finalFormattedInput);
+  console.log(isValidIP); // Log the result to the console for testing
+}
+
+// Attach the function to the input field's input event
+document.getElementById('searchbar').addEventListener('input', function () {
+  formatAndValidateIP(this.value);
+});
+
+// Attach an event listener for the keydown event to handle backspace
+document.getElementById('searchbar').addEventListener('keydown', function (event) {
+  if (event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault(); // Prevent space from being entered
+        if (this.value && this.value.charAt(this.value.length - 1) !== '.' ) {
+          this.value += '.';
+          console.log("spacebar", this.value)
+          formatAndValidateIP(this.value);
+        }
+    }
+  else if (event.key === 'Backspace') {
+    // Prevent the default behavior of the backspace key
+    event.preventDefault();
+    const currentValue = this.value;
+    if(currentValue.charAt(currentValue.length - 1) === '.')
+      newValue = currentValue.slice(0, -2);
+    else 
+      newValue = currentValue.slice(0, -1);
+
+    formatAndValidateIP(newValue);
+  }
+});
