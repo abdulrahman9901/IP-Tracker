@@ -1,6 +1,6 @@
 function fetchIpData(ip) {
   console.log('Fetching',ip);
-  fetch('http://127.0.0.1:3000/getIpInfo', {
+  fetch('https://ip-tracker-68u8.onrender.com/getIpInfo', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function fetchIpData(ip) {
 }
 
 function fetchDataAndReplace() {
-  fetch('http://127.0.0.1:3000/getIp', {
+  fetch('https://ip-tracker-68u8.onrender.com/getIp', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
