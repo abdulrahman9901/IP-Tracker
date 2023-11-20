@@ -3,13 +3,15 @@ const axios = require('axios');
 const requestIp = require('request-ip');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const path = require('path');
 const app = express();
 
 
 app.use(bodyParser.json());
 app.use(requestIp.mw());
 app.use(cors()); // Enable CORS for all routes
+
+app.use(express.static(path.join(__dirname)));
 
 app.get('/getIp', (req, res) => {
   const clientIp = req.clientIp.replace(/^.*:/, ''); // Extract the IPv4 address
@@ -19,9 +21,10 @@ app.get('/getIp', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  const clientIp = req.clientIp;
-  res.json({ ip: clientIp });
+  // Send the index.html file as the response
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
+
 // Custom middleware to handle proxy headers
 app.use((req, res, next) => {
   // Get the client's IP address from multiple headers
