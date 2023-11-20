@@ -30,6 +30,17 @@ function fetchIpData(ip) {
 
 }
 
+function extractFirstIP(ipString) {
+  // Regular expression to match an IPv4 address
+  const ipRegex = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+
+  // Find all matches in the input string
+  const matches = ipString.match(ipRegex);
+
+  // If matches are found, return the first one; otherwise, return null
+  return matches ? matches[0] : null;
+}
+
 function fetchDataAndReplace() {
   fetch('https://ip-tracker-68u8.onrender.com/getIp', {
     method: 'GET',
@@ -39,7 +50,7 @@ function fetchDataAndReplace() {
   })
   .then(response => response.json())
   .then(data => {
-    fetchIpData(data.ip)
+    fetchIpData(extractFirstIP(data.ip))
   })
   .catch(error => {
     console.error('Error:', error);
