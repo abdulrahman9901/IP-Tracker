@@ -1,2 +1,2 @@
 # IP-Tracker
-it's IP Tracker that uses multiple APIs to get the data of an ip (country , region , timezone , currency , ISP , coordinates ...etc ) and then dispaly them to user and using map api we show it's ;ocation on the shown map .
+it's IP Tracker that uses multiple APIs for getting the data of an ip (country , region , timezone , currency , ISP , coordinates ...etc ) then dispaly them and  using a map api we show ip's location on the map .
